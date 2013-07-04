@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gov.dane.sige.phonegap.divipola" version="1.0.0">
+    <name>INDICADORES Mobile</name>
+    <description>Phonegap Application for INDICADORES query and maps information visualization</description>
+    <author href="http://www.dane.gov.co" email="sige@dane.gov.co">SIGE</author>
+    <!-- Some features-->
+    <feature name="http://api.phonegap.com/1.0/network" />
+    <!-- Some preferences-->
+    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="orientation" value="portrait" />
+    <preference name="target-device" value="universal" />
+    <preference name="fullscreen" value="true" />
+    <!-- Some preferences (iOS)-->
+    <preference name="exit-on-suspend" value="true" />
+    <preference name="auto-hide-splash-screen" value="false" />
+    <!-- Some preferences (Android)-->
+    <preference name="android-minSdkVersion" value="8" />
+    <preference name="android-installLocation" value="preferExternal" />
+    <!--Icon Support (Default)-->
+    <icon src="icon/default.png" />
+    <!--Icon Support (blackberry)-->
+    <icon src="icon/blackberry/icon.png" gap:platform="blackberry" />
+    <!--Icon Support (ios)-->
+    <icon src="icon/ios/icon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="icon/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="icon/ios/icon_at_2x.png" gap:platform="ios" width="114" height="114" />
+    <!--Icon Support (Android)-->
+    <icon src="icon/android/icon-36-ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="icon/android/icon-48-mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="icon/android/icon-72-hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <icon src="icon/android/icon-96-xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    <!--Icon Support (WinPhone)-->
+    <icon src="icon/winphone/icon.png" gap:platform="winphone" />
+    <icon src="icon/winphone/tileicon.png" gap:platform="winphone" gap:role="background" />
+    <!--Splash Screen (WinPhone)-->
+    <gap:splash src="splash/winphone/splash.jpg" gap:platform="winphone" />
+    <!--Splash Screen (Android)-->
+    <gap:splash src="splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="splash/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    <!-- Access (Default)-->
+    <access origin="*" />
+    <access origin="http://127.0.0.1*" browserOnly="true" />
+</widget>

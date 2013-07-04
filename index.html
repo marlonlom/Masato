@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>INDICADORES-mobile-1.0</title>
+        <meta name="description" content="INDICADORES mobile">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!--styles-->
+        <link href=css/styles.css rel=stylesheet>
+        <!--scripts-->
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/zepto.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/zepto.detect.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/zepto.touch.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/fastclick.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/indqm.data.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/indqm.app.js"></script>
+        <script>
+            function onBodyLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
+            function onDeviceReady() {
+                if (window.navigator && window.navigator.splashscreen) {
+                    setTimeout(function() {
+                        window.navigator.splashscreen.hide();
+                    }, 1000);
+                }
+                document.addEventListener("backbutton", onBackKeyDown, false);
+                loadGoogleMaps();
+                document.addEventListener("online", function(e) {
+                    if (indq.googleMapsState == "" || indq.googleMapsState == "error") {
+                        loadGoogleMaps();
+                    }
+                }, false);
+            }
+        
+            function closeAppConfirm(btn) {
+                if (btn === 1) {
+                   navigator.app.exitApp() ;
+                }else{
+                   indq.prepareMainView(); 
+                }
+            }
+        
+            function onBackKeyDown() { 
+                if (navigator.notification) {
+                    navigator.notification.confirm('Salir de la aplicación?', closeAppConfirm, 'Saliendo', 'Salir,Cancelar'); 
+                }
+            }
+            
+            function loadGoogleMaps() { 
+                indq.googleMapsState = "loading"; 
+                var script = document.createElement("script"); 
+                script.src = "http://maps.google.com/maps/api/js?v=3.7&sensor=true&libraries=visualization&callback=googleMapsReady"; 
+                script.type = "text/javascript"; 
+                script.addEventListener("error", function(e) { 
+                    indq.googleMapsState = "error"; 
+                }, false); 
+                script.addEventListener("load", function(e) { 
+                    setTimeout(function() { 
+                        if (indq.googleMapsState == "loading") indq.googleMapsState = "error"; 
+                    }, 5000); 
+                }, false); 
+                document.getElementsByTagName("head")[0].appendChild(script); 
+            }
+            
+            function googleMapsReady() {
+                indq.googleMapsState = "ready";
+            }
+            
+            indq.checkGoogleMapsAvailability = function() { 
+                var connectionState = navigator.network.connection.type; 
+                if (connectionState == Connection.NONE || connectionState == Connection.UNKNOWN) { 
+                    return "No network connection available"; 
+                } 
+                if (indq.googleMapsState == "" || indq.googleMapsState == "error") { 
+                    return "Maps are not currently available"; 
+                } 
+                if (indq.googleMapsState == "loading") { 
+                    return "Maps are loading, try again aoon"; 
+                } 
+                return ""; 
+            };
+        
+            if (!$) {
+                $ = Zepto;
+            };
+            $(function($) {
+                indq.initialize();
+                indq.prepareMainView();
+                document.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, false);
+                indq.iscroll = new iScroll('wrapper');
+            })
+        </script>
+    </head>
+    
+    <body onload="onBodyLoad()">
+        <script id="hbt-home" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">INDICADORES</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='home-list'>
+                        <li class="menu-li home-li-tip search-box">
+                            <div class="search-box-wrapper">
+                                <input type="text" id="search-text" name="search-text" placeholder="Buscar un indicador">
+                                <button id="search-btn">&nbsp;</button>
+                            </div>
+                        </li>
+                        {{#each menu}}
+                        <li class="menu-li home-menu-item" data-home-link="{{cod}}">{{nom}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container"></div>
+            </footer>
+        </script>
+        <script id="hbt-search-results" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">INDICADORES</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <input type="hidden" id="prev-page" name="prev-page" value="home">
+                    <ul class='home-list'>
+                        <li class="menu-li home-li-tip">
+                            <b>{{upperTip}}</b>
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li search-li">
+                            <a href="#" class="itm-nom itm-{{geography}} {{#if clase}}itm-{{clase}}{{/if}}" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                    <div class="footer-btn">
+                        <img src="img/icon-back.png" class="back-prev-icon">
+                        Anterior
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-level01" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">INDICADORES</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <input type="hidden" id="prev-page" name="prev-page" value="home">
+                    <ul class='deptos-list'>
+                        <li class="menu-li home-li-tip inner-li">
+                            <b>{{upperTip}}</b>
+                            <br/>
+                            {{#if tip_bog}}
+                            <span class="tip_bog">{{tip_bog}}</span>
+                            {{/if}}
+                            <span class="data-treeline">{{treeline}}</span>
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li">
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
+                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                    <div class="footer-btn">
+                        <img src="img/icon-back.png" class="back-prev-icon">
+                        Anterior
+                    </div>
+                     <div class="footer-btn">
+                        <img src="img/icon-xls.png" class="save-xls-icon">
+                        C&oacute;digos
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-indiqs-list" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">INDICADORES</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <input type="hidden" id="prev-page" name="prev-page" value="home">
+                    <ul class='deptos-list'>
+                        <li class="menu-li home-li-tip">
+                            <span>Categor&iacute;a:&nbsp;{{categoryName}}</span>
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li">
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" data-itm-cod="{{cod}}" class="vmap-icon" />
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                    <div class="footer-btn">
+                        <img src="img/icon-back.png" class="back-prev-icon">
+                        Anterior
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-mapping" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">INDICADORES</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div class="map-title">
+                    <span>{{level01_nom}}{{#if level01_depto}}&nbsp;({{level01_cod}}){{/if}}</span>
+                    {{#if level02_cod}}
+                    <span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
+                    {{/if}}
+                    {{#if level03_cod}}
+                    <span>{{level03_nom}}&nbsp;({{level03_cod}})</span>
+                    {{/if}}
+                </div>
+                <div id="map-canvas" style="width: 100%; height: 84%;"></div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                </div>
+            </footer>
+        </script>
+    </body>
+
+</html>
