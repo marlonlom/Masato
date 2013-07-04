@@ -75,6 +75,10 @@ li.home-li-tip {
     margin-bottom:2px;
     color:#000000 !important;
 }
+li.menu-li a.categ-link{
+    color:#ffffff !important;
+    text-decoration:none;
+}
 li.menu-li {
     padding:5px;
     background:#B92859;

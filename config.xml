@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gov.dane.sige.phonegap.divipola" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gov.dane.sige.phonegap.indicadores" version="1.0.0">
     <name>INDICADORES Mobile</name>
     <description>Phonegap Application for INDICADORES query and maps information visualization</description>
     <author href="http://www.dane.gov.co" email="sige@dane.gov.co">SIGE</author>

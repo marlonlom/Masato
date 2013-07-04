@@ -56,7 +56,7 @@ indq.prepareMainView = function () {
 
     indq.prepareCommonPageBehaviour();
     
-    $('body').off(indq.toggleClickEvent()).on(indq.toggleClickEvent(), 'li.home-menu-item', function (e) {
+    $('body').off(indq.toggleClickEvent()).on(indq.toggleClickEvent(), 'a.categ-link', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
         indq.showIndicatorsListView(hash);
