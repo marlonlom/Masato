@@ -18,6 +18,7 @@
         <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/indqm.data.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/indqm.mapdata.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/indqm.app.js"></script>
         <script>
             function onBodyLoad() {
@@ -251,13 +252,7 @@
             </header>
             <div id="wrapper">
                 <div class="map-title">
-                    <span>{{level01_nom}}{{#if level01_depto}}&nbsp;({{level01_cod}}){{/if}}</span>
-                    {{#if level02_cod}}
-                    <span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
-                    {{/if}}
-                    {{#if level03_cod}}
-                    <span>{{level03_nom}}&nbsp;({{level03_cod}})</span>
-                    {{/if}}
+                    <span>{{indicatorTitle}}</span>
                 </div>
                 <div id="map-canvas" style="width: 100%; height: 84%;"></div>
             </div>
