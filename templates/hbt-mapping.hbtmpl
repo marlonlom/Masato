@@ -7,6 +7,15 @@
     <div class="map-title">
         <span>{{indicatorTitle}}</span>
     </div>
+    <img class="map-legend-img">
+    <div class="map-layers-box">
+        <div class="layers-titlebox">
+            <b>Capas</b>
+            <a class="btn-close-layers-box" href="#">X</a>
+        </div>
+        <div class="layers-list-wrapper">
+        </div>
+    </div>
     <div id="map-canvas" style="width: 100%; height: 90%;"></div>
 </div>
 <footer id="footer">
@@ -14,6 +23,10 @@
         <div class="footer-btn back-home-icon">
             <img src="img/icon-home.png">
             Inicio
+        </div>
+        <div class="footer-btn show-layers-icon">
+            <img src="img/icon-layers.png">
+            Capas
         </div>
         <div class="footer-btn show-legend-icon">
             <img src="img/icon-legend.png">

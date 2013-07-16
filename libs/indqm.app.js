@@ -2,13 +2,14 @@ var indq = {
     templates: {},
     atHome: true,
     googleMapsState: "",
+    mapsEngineLayer: null,
     iscroll: null
 };
 indq.initialize = function () {
-    this.templates.home = Handlebars.compile($("#hbt-home").html());
-    this.templates.indqsList = Handlebars.compile($("#hbt-indiqs-list").html());
-    this.templates.searchs = Handlebars.compile($("#hbt-search-results").html());
-    this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
+    this.templates.home = Handlebars.templates['hbt-home'];
+    this.templates.indqsList = Handlebars.templates['hbt-indiqs-list'];
+    this.templates.searchs = Handlebars.templates['hbt-search-results'];
+    this.templates.mapping = Handlebars.templates['hbt-mapping'];
 };
 indq.isOffline = function () {
     var connectionType = navigator.connection ? navigator.connection.type : null;
@@ -157,14 +158,23 @@ indq.prepareMap = function (indicator) {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            var map = new google.maps.Map(document.getElementById("map-canvas"),
+            if(indq.map){
+                delete indq.map;
+            }
+            indq.map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
 
-            var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
-                mapId: mapConfig.map_id,
-                layerKey: 'layer_00001',
-                map: map
-            });
+            if (indq.mapsEngineLayer){
+                indq.mapsEngineLayer.setMap(null);
+                indq.mapsEngineLayer = null;
+            }
+            if (indq.mapsEngineLayer === null) {
+                indq.mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
+                    mapId: mapConfig.map_id,
+                    layerKey: 'layer_00001',
+                    map: indq.map
+                });
+            }
         } else {
             indq.showAlert('No hay datos para mostrar.', 'Cargar mapa');
         }
