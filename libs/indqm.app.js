@@ -38,10 +38,10 @@ indq.handleSearchBox = function () {
     });
 };
 indq.prepareCommonPageBehaviour = function () {
-    if(FastClick){
+    if (FastClick) {
         FastClick.attach(document.body);
     }
-    
+
     if (indq.iscroll !== null) {
         indq.iscroll.destroy();
         indq.iscroll = null;
@@ -50,13 +50,13 @@ indq.prepareCommonPageBehaviour = function () {
 };
 indq.prepareMainView = function () {
     $('body').off(indq.toggleClickEvent());
-    
+
     $('body').html(this.templates.home({
         menu: data.categs
     }));
 
     indq.prepareCommonPageBehaviour();
-    
+
     $('body').off(indq.toggleClickEvent()).on(indq.toggleClickEvent(), 'a.categ-link', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
@@ -64,7 +64,7 @@ indq.prepareMainView = function () {
     });
     indq.handleDANEWebpageAccess();
     indq.handleSearchBox();
-    
+
 };
 indq.prepareSearchsView = function (searchtext) {
     if (searchtext !== 'nah') {
@@ -81,12 +81,18 @@ indq.prepareSearchsView = function (searchtext) {
         $('body').html(indq.templates.searchs(context));
 
         indq.prepareCommonPageBehaviour();
-        
+
         $('li.item-li').addClass('mpios-li').each(function (index) {
             var odd = index % 2 === 0;
             $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
         });
-        
+
+        $('body').on(indq.toggleClickEvent(), 'img.vmap-icon', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            indq.prepareMappingView(btn);
+        });
+
     } else {
         indq.showAlert('Ingrese un texto.', 'Buscar');
     }
@@ -99,7 +105,7 @@ indq.showIndicatorsListView = function (hash) {
     var categfound = $.grep(data['categs'], function (item, index) {
         return item['cod'] === hash;
     });
-    
+
     var indiqsFound = $.grep(data['indiqs'], function (item, index) {
         return item['categ'] === hash;
     });
@@ -108,12 +114,12 @@ indq.showIndicatorsListView = function (hash) {
         categoryName: categfound !== null && categfound.length > 0 ? categfound[0].nom : '',
         list: indiqsFound
     };
-    
+
     $('body').html(this.templates.indqsList(context));
-    
+
     indq.prepareCommonPageBehaviour();
 
-    $('body').on(indq.toggleClickEvent(), 'img.back-home-icon', function (e) {
+    $('body').on(indq.toggleClickEvent(), '.back-home-icon', function (e) {
         e.preventDefault();
         indq.atHome = true;
         indq.prepareMainView();
@@ -121,7 +127,7 @@ indq.showIndicatorsListView = function (hash) {
         e.preventDefault();
         var btn = $(this);
         indq.prepareMappingView(btn);
-    }).on(indq.toggleClickEvent(), 'img.back-prev-icon', function (e) {
+    }).on(indq.toggleClickEvent(), '.back-prev-icon', function (e) {
         e.preventDefault();
         var prev_page = $('#prev-page').val() || 'none';
         if (prev_page === 'home') {
@@ -132,7 +138,7 @@ indq.showIndicatorsListView = function (hash) {
     $('li.item-li').addClass('mpios-li').each(function (index) {
         var odd = index % 2 === 0;
         $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
-    });    
+    });
     indq.handleDANEWebpageAccess();
 };
 indq.prepareMap = function (indicator) {
@@ -145,21 +151,19 @@ indq.prepareMap = function (indicator) {
             var mapOptions = {
                 disableDoubleClickZoom: true,
                 streetViewControl: false,
-                scaleControl : false,
-                zoom: 7,
-                draggable : false,
+                scaleControl: false,
+                zoom: 5,
+                center: new google.maps.LatLng(4.587376, -74.075317),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
             var map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
-            
+
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: mapConfig.map_id,
                 layerKey: 'layer_00001',
-                map: map,
-                clickable: false,
-                suppressInfoWindows: true
+                map: map
             });
         } else {
             indq.showAlert('No hay datos para mostrar.', 'Cargar mapa');
@@ -182,13 +186,64 @@ indq.prepareMappingView = function (btn) {
             };
             $('body').html(this.templates.mapping(context));
             indq.prepareCommonPageBehaviour();
-            $('body').on(indq.toggleClickEvent(), 'img.back-home-icon', function (e) {
+            $('body').on(indq.toggleClickEvent(), '.back-home-icon', function (e) {
                 e.preventDefault();
                 indq.atHome = true;
                 indq.prepareMainView();
+            }).on(indq.toggleClickEvent(), '.save-mapdata-icon', function (e) {
+                e.preventDefault();
+                var mapConfig = $.grep(mapdata, function (item, index) {
+                    return item['indq'] === indiqsFound[0]['cod'];
+                })[0];
+                var saveDataURl = mapConfig !== undefined ? mapConfig.dataDownloadUrl : 'none';
+                if (saveDataURl !== 'none') {
+                    window.open(saveDataURl, '_system');
+                }
+            }).on(indq.toggleClickEvent(), '.show-legend-icon', function (e) {
+                e.preventDefault();
+                var mapConfig = $.grep(mapdata, function (item, index) {
+                    return item['indq'] === indiqsFound[0]['cod'];
+                })[0];
+                var legendImgURl = mapConfig !== undefined ? mapConfig.legendImageUrl : 'none';
+                if (legendImgURl !== undefined && legendImgURl !== 'none') {
+                    $('img.map-legend-img').attr('src', legendImgURl);
+                    $('img.map-legend-img').toggle();
+                } else {
+                    indq.showAlert('No hay imagen.', 'Leyenda');
+                }
+            }).on(indq.toggleClickEvent(), '.show-layers-icon', function (e) {
+                e.preventDefault();
+                $('div.map-layers-box').show();
+                $('div.map-layers-box').off(indq.toggleClickEvent(), 'a.btn-set-selected-layer');
+                $('div.map-layers-box div.layers-list-wrapper').html('');
+                var mapConfig = $.grep(mapdata, function (item, index) {
+                    return item['indq'] === indiqsFound[0]['cod'];
+                })[0];
+                var currLayers = mapConfig['layers'] || null;
+                if (currLayers !== null) {
+                    var layersList = '';
+                    currLayers.forEach(function (elem) {
+                        layersList += "<a href='#' class='btn-set-selected-layer' data-maplayer-key='" + elem['map_id'] + "'>" + elem['label'] + "</a>";
+                    });
+                    $('div.layers-list-wrapper').html(layersList);
+                }
+                $('div.map-layers-box').off(indq.toggleClickEvent(), 'a.btn-close-layers-box');
+                $('div.map-layers-box').on(indq.toggleClickEvent(), 'a.btn-close-layers-box', function (e) {
+                    e.preventDefault();
+                    $('div.map-layers-box').hide();
+                });
+                $('div.map-layers-box').on(indq.toggleClickEvent(), 'a.btn-set-selected-layer', function (e) {
+                    e.preventDefault();
+                    var elem_maplayer = $(this).attr('data-maplayer-key');
+                    console.log('capa: ', {
+                        label: $(this).text(),
+                        map: elem_maplayer
+                    });
+                    $('div.map-layers-box').hide();
+                });
             });
             indq.prepareMap(indiqsFound[0]);
-        }else{
+        } else {
             indq.showAlert('No hay datos para mostrar.', 'Cargar mapa');
         }
     }

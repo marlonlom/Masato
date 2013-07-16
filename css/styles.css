@@ -75,7 +75,7 @@ li.home-li-tip {
     margin-bottom:2px;
     color:#000000 !important;
 }
-li.menu-li a.categ-link{
+li.menu-li a.categ-link {
     color:#ffffff !important;
     text-decoration:none;
 }
@@ -215,7 +215,6 @@ span.data-treeline {
     background-image:-moz-linear-gradient(top, #e5e5e5, #cccccc);
     background-image:-o-linear-gradient(top, #e5e5e5, #cccccc);
     border-top:1px solid #111;
-
 }
 #footer div.footer-container {
     margin: 0;
@@ -242,6 +241,7 @@ div.map-title {
 }
 div.map-title span {
     display:block;
+    text-align:center;
     font-size:11px;
     padding-left:5px;
     padding-right:5px;
@@ -281,4 +281,52 @@ li.search-li a.itm-departamentos {
 }
 li.search-li a.itm-municipios {
     color:#CD5C23;
+}
+img.map-legend-img {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    width: 40%;
+    bottom: 20px;
+    left: 2px;
+}
+div.map-layers-box {
+    display: none;
+    width: 50%;
+    background: none repeat scroll 0% 0% #ffffff;
+    z-index: 100;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    border: 1px solid #000000;
+}
+div.map-layers-box div.layers-titlebox {
+    clear: both;
+    height: 20px;
+    padding-bottom: 2px;
+    background-color:#e5e5e5;
+    background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #e5e5e5), color-stop(1, #cccccc));
+    background-image:-moz-linear-gradient(top, #e5e5e5, #cccccc);
+    background-image:-o-linear-gradient(top, #e5e5e5, #cccccc);
+    border-bottom: 1px solid #000000;
+}
+div.map-layers-box div.layers-titlebox a {
+    float:right;
+    text-decoration:none;
+    color:#000000;
+    font-weight:bold;
+    padding-right:5px;
+}
+div.map-layers-box div.layers-titlebox b {
+    float:left;
+    padding-left:5px;
+}
+a.btn-set-selected-layer {
+    background: url("../img/icon-check-layer.png") no-repeat scroll 2px center transparent;
+    border-bottom: 1px solid #e5e5e5;
+    color: #000000;
+    display: block;
+    font-size: 11px;
+    padding: 2px 2px 5px 20px;
+    text-decoration: none;
 }

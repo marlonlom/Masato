@@ -1,0 +1,25 @@
+<header id="header">
+    <img src="img/dane.header.01.png" class="danelogo1">
+    <h5 class="title">INDICADORES</h5>
+    <img src="img/dane.header.02.png" class="danelogo2">
+</header>
+<div id="wrapper">
+    <div id="scroller">
+        <ul class='home-list'>
+            <li class="menu-li home-li-tip search-box">
+                <div class="search-box-wrapper">
+                    <input type="text" id="search-text" name="search-text" placeholder="Buscar un indicador">
+                    <button id="search-btn">&nbsp;</button>
+                </div>
+            </li>
+            {{#each menu}}
+            <li class="menu-li home-menu-item">
+                <a href="#" data-home-link="{{cod}}" class="categ-link">{{nom}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+<footer id="footer">
+    <div class="footer-container"></div>
+</footer>

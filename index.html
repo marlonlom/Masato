@@ -76,13 +76,13 @@
             indq.checkGoogleMapsAvailability = function() { 
                 var connectionState = navigator.network.connection.type; 
                 if (connectionState == Connection.NONE || connectionState == Connection.UNKNOWN) { 
-                    return "No network connection available"; 
+                    return "No hay conexión de red disponible"; 
                 } 
                 if (indq.googleMapsState == "" || indq.googleMapsState == "error") { 
-                    return "Maps are not currently available"; 
+                    return "Los mapas no están disponibles actualmente"; 
                 } 
                 if (indq.googleMapsState == "loading") { 
-                    return "Maps are loading, try again aoon"; 
+                    return "El servicio de mapas está cargándose, inténtelo de nuevo pronto";
                 } 
                 return ""; 
             };
@@ -144,49 +144,8 @@
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li search-li">
-                            <a href="#" class="itm-nom itm-{{geography}} {{#if clase}}itm-{{clase}}{{/if}}" data-itm-cod="{{cod}}">{{nom}}</a>
-                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
-            <footer id="footer">
-                <div class="footer-container">
-                    <div class="footer-btn">
-                        <img src="img/icon-home.png" class="back-home-icon">
-                        Inicio
-                    </div>
-                    <div class="footer-btn">
-                        <img src="img/icon-back.png" class="back-prev-icon">
-                        Anterior
-                    </div>
-                </div>
-            </footer>
-        </script>
-        <script id="hbt-level01" type="text/x-handlebars-template">
-            <header id="header">
-                <img src="img/dane.header.01.png" class="danelogo1">
-                <h5 class="title">INDICADORES</h5>
-                <img src="img/dane.header.02.png" class="danelogo2">
-            </header>
-            <div id="wrapper">
-                <div id="scroller">
-                    <input type="hidden" id="prev-page" name="prev-page" value="home">
-                    <ul class='deptos-list'>
-                        <li class="menu-li home-li-tip inner-li">
-                            <b>{{upperTip}}</b>
-                            <br/>
-                            {{#if tip_bog}}
-                            <span class="tip_bog">{{tip_bog}}</span>
-                            {{/if}}
-                            <span class="data-treeline">{{treeline}}</span>
-                        </li>
-                        {{#each list}}
-                        <li class="menu-li item-li">
                             <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
-                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
-                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+                            <img src="img/map.png" data-itm-cod="{{cod}}" class="vmap-icon" />
                         </li>
                         {{/each}}
                     </ul>
@@ -194,17 +153,13 @@
             </div>
             <footer id="footer">
                 <div class="footer-container">
-                    <div class="footer-btn">
-                        <img src="img/icon-home.png" class="back-home-icon">
+                    <div class="footer-btn back-home-icon">
+                        <img src="img/icon-home.png">
                         Inicio
                     </div>
-                    <div class="footer-btn">
-                        <img src="img/icon-back.png" class="back-prev-icon">
+                    <div class="footer-btn back-prev-icon">
+                        <img src="img/icon-back.png">
                         Anterior
-                    </div>
-                     <div class="footer-btn">
-                        <img src="img/icon-xls.png" class="save-xls-icon">
-                        C&oacute;digos
                     </div>
                 </div>
             </footer>
@@ -233,12 +188,12 @@
             </div>
             <footer id="footer">
                 <div class="footer-container">
-                    <div class="footer-btn">
-                        <img src="img/icon-home.png" class="back-home-icon">
+                    <div class="footer-btn back-home-icon">
+                        <img src="img/icon-home.png">
                         Inicio
                     </div>
-                    <div class="footer-btn">
-                        <img src="img/icon-back.png" class="back-prev-icon">
+                    <div class="footer-btn back-prev-icon">
+                        <img src="img/icon-back.png">
                         Anterior
                     </div>
                 </div>
@@ -254,13 +209,34 @@
                 <div class="map-title">
                     <span>{{indicatorTitle}}</span>
                 </div>
-                <div id="map-canvas" style="width: 100%; height: 84%;"></div>
+                <img class="map-legend-img">
+                <div class="map-layers-box">
+                    <div class="layers-titlebox">
+                        <b>Capas</b>
+                        <a class="btn-close-layers-box" href="#">X</a>
+                    </div>
+                    <div class="layers-list-wrapper">
+                    </div>
+                </div>
+                <div id="map-canvas" style="width: 100%; height: 90%;"></div>
             </div>
             <footer id="footer">
                 <div class="footer-container">
-                    <div class="footer-btn">
-                        <img src="img/icon-home.png" class="back-home-icon">
+                    <div class="footer-btn back-home-icon">
+                        <img src="img/icon-home.png">
                         Inicio
+                    </div>
+                    <div class="footer-btn show-layers-icon">
+                        <img src="img/icon-layers.png">
+                        Capas
+                    </div>
+                    <div class="footer-btn show-legend-icon">
+                        <img src="img/icon-legend.png">
+                        Leyenda
+                    </div>
+                    <div class="footer-btn save-mapdata-icon">
+                        <img src="img/icon-download.png">
+                        Descarga
                     </div>
                 </div>
             </footer>
