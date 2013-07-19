@@ -3,6 +3,10 @@ var mapdata = [{
     map_id: '03774390725342724344-01061255222055588972-4',
     dataDownloadUrl: 'http://190.25.231.249/sigePruebas/documents/10179/38d75647-9948-4f43-85b8-0c563b060d0d',
     legendImageUrl: 'http://www.dane.gov.co/geoportal/sige-theme/images/sige/servicios/indicadores-leyenda.png',
+    defaultBounds:{
+        ne:[13.394789829000045, -66.84734600699994],
+        sw:[-4.227723064999964, -81.73577472099998],
+    },
     layers: [{
         label: '2020',
         map_id: '03774390725342724344-15793795622862423642-4',
