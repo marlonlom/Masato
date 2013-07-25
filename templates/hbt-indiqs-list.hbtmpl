@@ -21,10 +21,6 @@
 </div>
 <footer id="footer">
     <div class="footer-container">
-        <div class="footer-btn back-home-icon">
-            <img src="img/icon-home.png">
-            Inicio
-        </div>
         <div class="footer-btn back-prev-icon">
             <img src="img/icon-back.png">
             Anterior

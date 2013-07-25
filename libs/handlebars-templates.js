@@ -57,7 +57,7 @@ function program1(depth0,data) {
     + "</span>\r\n            </li>\r\n            ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n        </ul>\r\n    </div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-home-icon\">\r\n            <img src=\"img/icon-home.png\">\r\n            Inicio\r\n        </div>\r\n        <div class=\"footer-btn back-prev-icon\">\r\n            <img src=\"img/icon-back.png\">\r\n            Anterior\r\n        </div>\r\n    </div>\r\n</footer>";
+  buffer += "\r\n        </ul>\r\n    </div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-prev-icon\">\r\n            <img src=\"img/icon-back.png\">\r\n            Anterior\r\n        </div>\r\n    </div>\r\n</footer>";
   return buffer;
   });
 templates['hbt-mapping'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -70,7 +70,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.indicatorTitle) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.indicatorTitle; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</span>\r\n    </div>\r\n    <img class=\"map-legend-img\">\r\n    <div class=\"map-layers-box\">\r\n        <div class=\"layers-titlebox\">\r\n            <b>Capas</b>\r\n            <a class=\"btn-close-layers-box\" href=\"#\">X</a>\r\n        </div>\r\n        <div class=\"layers-list-wrapper\">\r\n        </div>\r\n    </div>\r\n    <div id=\"map-canvas\" style=\"width: 100%; height: 90%;\"></div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-home-icon\">\r\n            <img src=\"img/icon-home.png\">\r\n            Inicio\r\n        </div>\r\n        <div class=\"footer-btn show-layers-icon\">\r\n            <img src=\"img/icon-layers.png\">\r\n            Capas\r\n        </div>\r\n        <div class=\"footer-btn show-legend-icon\">\r\n            <img src=\"img/icon-legend.png\">\r\n            Leyenda\r\n        </div>\r\n        <div class=\"footer-btn save-mapdata-icon\">\r\n            <img src=\"img/icon-download.png\">\r\n            Descarga\r\n        </div>\r\n    </div>\r\n</footer>";
+    + "</span>\r\n    </div>\r\n    <img class=\"map-legend-img\">\r\n    <div class=\"map-layers-box\">\r\n        <div class=\"layers-titlebox\">\r\n            <b>Capas</b>\r\n            <a class=\"btn-close-layers-box\" href=\"#\">X</a>\r\n        </div>\r\n        <div class=\"layers-list-wrapper\">\r\n        </div>\r\n    </div>\r\n    <div id=\"map-canvas\" style=\"width: 100%; height: 90%;\"></div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-prev-icon\">\r\n            <img src=\"img/icon-back.png\">\r\n            Anterior\r\n        </div>\r\n        <div class=\"footer-btn show-layers-icon\">\r\n            <img src=\"img/icon-layers.png\">\r\n            Capas\r\n        </div>\r\n        <div class=\"footer-btn show-legend-icon\">\r\n            <img src=\"img/icon-legend.png\">\r\n            Leyenda\r\n        </div>\r\n        <div class=\"footer-btn save-mapdata-icon\">\r\n            <img src=\"img/icon-download.png\">\r\n            Descarga\r\n        </div>\r\n    </div>\r\n</footer>";
   return buffer;
   });
 templates['hbt-search-results'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -104,7 +104,7 @@ function program1(depth0,data) {
     + "</b>\r\n            </li>\r\n            ";
   stack1 = helpers.each.call(depth0, depth0.list, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n        </ul>\r\n    </div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-home-icon\">\r\n            <img src=\"img/icon-home.png\">\r\n            Inicio\r\n        </div>\r\n        <div class=\"footer-btn back-prev-icon\">\r\n            <img src=\"img/icon-back.png\">\r\n            Anterior\r\n        </div>\r\n    </div>\r\n</footer>";
+  buffer += "\r\n        </ul>\r\n    </div>\r\n</div>\r\n<footer id=\"footer\">\r\n    <div class=\"footer-container\">\r\n        <div class=\"footer-btn back-prev-icon\">\r\n            <img src=\"img/icon-back.png\">\r\n            Anterior\r\n        </div>\r\n    </div>\r\n</footer>";
   return buffer;
   });
 })();

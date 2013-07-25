@@ -92,6 +92,13 @@ indq.prepareSearchsView = function (searchtext) {
             e.preventDefault();
             var btn = $(this);
             indq.prepareMappingView(btn);
+        }).on(indq.toggleClickEvent(), '.back-prev-icon', function (e) {
+            e.preventDefault();
+            var prev_page = $('#prev-page').val() || 'none';
+            if (prev_page === 'home') {
+                indq.atHome = true;
+                indq.prepareMainView();
+            }
         });
 
     } else {
@@ -198,7 +205,7 @@ indq.prepareMappingView = function (btn) {
             };
             $('body').html(this.templates.mapping(context));
             indq.prepareCommonPageBehaviour();
-            $('body').on(indq.toggleClickEvent(), '.back-home-icon', function (e) {
+            $('body').on(indq.toggleClickEvent(), '.back-prev-icon', function (e) {
                 e.preventDefault();
                 indq.atHome = true;
                 indq.prepareMainView();
