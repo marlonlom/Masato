@@ -244,39 +244,6 @@ indq.prepareMappingView = function (btn) {
                 indq.mapsEngineLayer.setMap(null);
                 indq.mapsEngineLayer.setLayerKey(elem_maplayer);
                 indq.mapsEngineLayer.setMap(indq.map);
-            }).on(indq.toggleClickEvent(), '.show-layers-icon', function (e) {
-                e.preventDefault();
-                $('div.map-layers-box').show();
-                $('div.map-layers-box').off(indq.toggleClickEvent(), 'a.btn-set-selected-layer');
-                $('div.map-layers-box div.layers-list-wrapper').html('');
-                var mapConfig = $.grep(mapdata, function (item, index) {
-                    return item['indq'] === indiqsFound[0]['cod'];
-                })[0];
-                var currLayers = mapConfig['layers'] || null;
-                if (currLayers !== null) {
-                    var layersList = '';
-                    currLayers.forEach(function (elem) {
-                        layersList += "<a href='#' class='btn-set-selected-layer' data-maplayer-key='" + elem['layer_key'] + "'>" + elem['label'] + "</a>";
-                    });
-                    $('div.layers-list-wrapper').html(layersList);
-                }
-                $('div.map-layers-box').off(indq.toggleClickEvent(), 'a.btn-close-layers-box');
-                $('div.map-layers-box').on(indq.toggleClickEvent(), 'a.btn-close-layers-box', function (e) {
-                    e.preventDefault();
-                    $('div.map-layers-box').hide();
-                });
-                $('div.map-layers-box').on(indq.toggleClickEvent(), 'a.btn-set-selected-layer', function (e) {
-                    e.preventDefault();
-                    var elem_maplayer = $(this).attr('data-maplayer-key');
-                    console.log('capa: ', {
-                        label: $(this).text(),
-                        map: elem_maplayer
-                    });
-                    indq.mapsEngineLayer.setMap(null);
-                    indq.mapsEngineLayer.setLayerKey(elem_maplayer);
-                    indq.mapsEngineLayer.setMap(indq.map);
-                    $('div.map-layers-box').hide();
-                });
             });
             indq.prepareMap(indiqsFound[0]);
         } else {
