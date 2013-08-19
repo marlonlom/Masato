@@ -183,6 +183,14 @@ indq.prepareMap = function (indicator) {
                     layerKey: 'layer_00001',
                     map: indq.map
                 });
+                var lyrs= mapConfig.layers || null;
+                if (lyrs !==null){
+                    var layersList = '';
+                    lyrs.forEach(function (lyr) {
+                        layersList += "<option value='" + lyr['layer_key'] + "'>" + lyr['label'] + "</option>";
+                    });
+                    $('div.layer-selectorbox select').html(layersList);
+                }
             }
         } else {
             indq.showAlert('No hay datos para mostrar.', 'Cargar mapa');
@@ -230,6 +238,12 @@ indq.prepareMappingView = function (btn) {
                 } else {
                     indq.showAlert('No hay imagen.', 'Leyenda');
                 }
+            }).on(indq.toggleClickEvent(), ' div.layer-selectorbox select', function (e) {
+                e.preventDefault();
+                var elem_maplayer = $(this).val();
+                indq.mapsEngineLayer.setMap(null);
+                indq.mapsEngineLayer.setLayerKey(elem_maplayer);
+                indq.mapsEngineLayer.setMap(indq.map);
             }).on(indq.toggleClickEvent(), '.show-layers-icon', function (e) {
                 e.preventDefault();
                 $('div.map-layers-box').show();
@@ -242,7 +256,7 @@ indq.prepareMappingView = function (btn) {
                 if (currLayers !== null) {
                     var layersList = '';
                     currLayers.forEach(function (elem) {
-                        layersList += "<a href='#' class='btn-set-selected-layer' data-maplayer-key='" + elem['map_id'] + "'>" + elem['label'] + "</a>";
+                        layersList += "<a href='#' class='btn-set-selected-layer' data-maplayer-key='" + elem['layer_key'] + "'>" + elem['label'] + "</a>";
                     });
                     $('div.layers-list-wrapper').html(layersList);
                 }
@@ -259,7 +273,7 @@ indq.prepareMappingView = function (btn) {
                         map: elem_maplayer
                     });
                     indq.mapsEngineLayer.setMap(null);
-                    indq.mapsEngineLayer.setMapId(elem_maplayer);
+                    indq.mapsEngineLayer.setLayerKey(elem_maplayer);
                     indq.mapsEngineLayer.setMap(indq.map);
                     $('div.map-layers-box').hide();
                 });
