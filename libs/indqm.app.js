@@ -170,7 +170,6 @@ indq.prepareMap = function (indicator) {
             }
             indq.map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
-            
             indq.controlMappingViewport(mapConfig);
 
             if (indq.mapsEngineLayer){
@@ -183,8 +182,11 @@ indq.prepareMap = function (indicator) {
                     layerKey: 'layer_00001',
                     map: indq.map
                 });
+                google.maps.event.addListener(indq.mapsEngineLayer, 'status_changed', function () { 
+                    $('img#map-loading-img').hide();
+                });
                 var lyrs= mapConfig.layers || null;
-                if (lyrs !==null){
+                if (lyrs !== null){
                     var layersList = '';
                     lyrs.forEach(function (lyr) {
                         layersList += "<option value='" + lyr['layer_key'] + "'>" + lyr['label'] + "</option>";
@@ -212,6 +214,7 @@ indq.prepareMappingView = function (btn) {
                 indicatorTitle: indiqsFound !== null && indiqsFound.length > 0 ? indiqsFound[0].nom : ''
             };
             $('body').html(this.templates.mapping(context));
+            $('img#map-loading-img').hide();
             indq.prepareCommonPageBehaviour();
             $('body').on(indq.toggleClickEvent(), '.back-prev-icon', function (e) {
                 e.preventDefault();
@@ -244,6 +247,7 @@ indq.prepareMappingView = function (btn) {
                 indq.mapsEngineLayer.setMap(null);
                 indq.mapsEngineLayer.setLayerKey(elem_maplayer);
                 indq.mapsEngineLayer.setMap(indq.map);
+                $('img#map-loading-img').show();
             });
             indq.prepareMap(indiqsFound[0]);
         } else {
@@ -260,7 +264,6 @@ indq.controlMappingViewport = function(mapConfig){
     google.maps.event.addListener(indq.map, 'dragend', function() {
         if (strictBounds.contains(indq.map.getCenter())) return;
         indq.map.setCenter(new google.maps.LatLng(4.587376, -74.075317));
-        indq.map.fitBounds(strictBounds);
         indq.map.fitBounds(strictBounds);
     });
     google.maps.event.addListener(indq.map, 'zoom_changed', function() {
