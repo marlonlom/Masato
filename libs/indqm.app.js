@@ -164,7 +164,8 @@ indq.prepareMap = function (indicator) {
                 center: new google.maps.LatLng(4.587376, -74.075317),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-
+            google.maps.visualRefresh = true;
+            
             if(indq.map){
                 delete indq.map;
             }
