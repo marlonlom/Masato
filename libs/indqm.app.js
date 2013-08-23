@@ -238,7 +238,7 @@ indq.prepareMappingView = function (btn) {
                 } else {
                     indq.showAlert('No hay imagen.', 'Leyenda');
                 }
-            }).on(indq.toggleClickEvent(), ' div.layer-selectorbox select', function (e) {
+            }).on('change', ' div.layer-selectorbox select', function (e) {
                 e.preventDefault();
                 var elem_maplayer = $(this).val();
                 indq.mapsEngineLayer.setMap(null);
